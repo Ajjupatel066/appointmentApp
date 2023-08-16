@@ -12,54 +12,56 @@ class Appointments extends Component {
     titleInput: '',
     dateInput: '',
     appointmentsList: [],
+    isFilterActive: false,
   }
 
   toggleStar = id => {
     this.setState(prevState => ({
       appointmentsList: prevState.appointmentsList.map(eachAppointment => {
         if (id === eachAppointment.id) {
-          return {...eachAppointment, isLiked: !eachAppointment.isLiked}
+          return {...eachAppointment, isStarred: !eachAppointment.isStarred}
         }
         return eachAppointment
       }),
     }))
   }
 
-  getStarredAppointment = () => {
-    const {appointmentsList} = this.state
+  onClickFilter = () => {
+    const {isFilterActive} = this.state
     this.setState({
-      appointmentsList: appointmentsList.filter(
-        eachAppointment => eachAppointment.isLiked === true,
-      ),
+      isFilterActive: !isFilterActive,
     })
   }
 
-  renderAppointmentsList = () => {
-    const {appointmentsList} = this.state
-
-    return appointmentsList.map(eachAppointment => (
-      <AppointmentItem
-        key={eachAppointment.id}
-        appointmentDetails={eachAppointment}
-        toggleStar={this.toggleStar}
-      />
-    ))
+  getFilteredAppointmentList = () => {
+    const {appointmentsList, isFilterActive} = this.setState
+    if (isFilterActive) {
+      return appointmentsList.filter(
+        eachAppointment => eachAppointment.isStarred === true,
+      )
+    }
+    return appointmentsList
   }
 
   onAddAppointment = event => {
     event.preventDefault()
     const {titleInput, dateInput} = this.state
-    const appointmentDate = format(new Date(dateInput), 'dd MMMM yyyy, EEEE')
+
+    const appointmentDate = dateInput
+      ? format(new Date(dateInput), 'dd MMMM yyyy, EEEE')
+      : ''
 
     const newAppointment = {
       id: v4(),
       title: titleInput,
       date: appointmentDate,
-      isLiked: false,
+      isStarred: false,
     }
 
     this.setState(prevState => ({
       appointmentsList: [...prevState.appointmentsList, newAppointment],
+      titleInput: '',
+      dateInput: '',
     }))
   }
 
@@ -76,7 +78,9 @@ class Appointments extends Component {
   }
 
   render() {
-    const {titleInput, dateInput} = this.state
+    const {titleInput, dateInput, isFilterActive} = this.state
+    const filterClassName = isFilterActive ? 'filter-filled' : 'filter-empty'
+    const filteredAppointmentsList = this.getFilteredAppointmentList()
 
     return (
       <div className="bg-container">
@@ -84,7 +88,7 @@ class Appointments extends Component {
           <div className="appointment-details">
             <form className="form" onSubmit={this.onAddAppointment}>
               <h1 className="card-heading">Add Appointment</h1>
-              <label for="title" className="input-title">
+              <label htmlFor="title" className="input-title">
                 TITLE
               </label>
               <input
@@ -95,7 +99,7 @@ class Appointments extends Component {
                 onChange={this.onChangeTitleInput}
                 value={titleInput}
               />
-              <label for="date" className="input-title">
+              <label htmlFor="date" className="input-title">
                 DATE
               </label>
               <input
@@ -120,13 +124,21 @@ class Appointments extends Component {
             <h1 className="appointments-title">Appointments</h1>
             <button
               type="button"
-              className="starred-btn"
-              onClick={this.getStarredAppointment}
+              className={`starred-btn ${filterClassName}`}
+              onClick={this.onClickFilter}
             >
               Starred
             </button>
           </div>
-          <ul className="appointment-items">{this.renderAppointmentsList()}</ul>
+          <ul className="appointment-items">
+            {filteredAppointmentsList.map(eachAppointment => (
+              <AppointmentItem
+                key={eachAppointment.id}
+                appointmentDetails={eachAppointment}
+                toggleStar={this.toggleStar}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     )

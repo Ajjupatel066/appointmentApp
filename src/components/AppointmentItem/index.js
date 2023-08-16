@@ -3,9 +3,9 @@ import './index.css'
 
 const AppointmentItem = props => {
   const {appointmentDetails, toggleStar} = props
-  const {id, title, date, isLiked} = appointmentDetails
+  const {id, title, date, isStarred} = appointmentDetails
 
-  const likeImageUrl = isLiked
+  const likeImageUrl = isStarred
     ? 'https://assets.ccbp.in/frontend/react-js/appointments-app/filled-star-img.png'
     : 'https://assets.ccbp.in/frontend/react-js/appointments-app/star-img.png'
 
@@ -26,7 +26,7 @@ const AppointmentItem = props => {
           <img src={likeImageUrl} className="img" alt="star" />
         </button>
       </div>
-      <p>{date}</p>
+      <p>Date: {date}</p>
     </li>
   )
 }
