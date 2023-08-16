@@ -1,0 +1,110 @@
+/* Write your CSS here */
+
+.bg-container {
+  background-image: linear-gradient(to bottom, #fbc7d4, #9796f0);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.appointment-card {
+  max-width: 90%;
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 30px;
+}
+@media screen and (min-width: 765px) {
+  .appointment-card {
+    width: 90%;
+    padding: 60px;
+  }
+}
+
+.appointment-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-heading {
+  font-size: 32px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #171f46;
+}
+.input-title {
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 12px;
+  color: #b5b7c4;
+}
+.input-box {
+  width: 260px;
+  height: 35px;
+  outline: none;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 8px;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.add-button {
+  background-color: #8b5cf6;
+  font-family: 'Roboto';
+  font-size: 19px;
+  color: #fff;
+  width: 70px;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  outline: none;
+  cursor: pointer;
+}
+.appointment-img {
+  display: none;
+  height: 250px;
+}
+@media screen and (min-width: 765px) {
+  .appointment-img {
+    display: block;
+  }
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.appointments-title {
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 500;
+}
+.starred-btn {
+  color: #9897f0;
+  font-size: 12px;
+  background-color: transparent;
+  border: 1px solid #9897f0;
+  border-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+}
+.appointment-items {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
