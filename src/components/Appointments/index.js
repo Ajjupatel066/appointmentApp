@@ -9,9 +9,9 @@ import './index.css'
 
 class Appointments extends Component {
   state = {
+    appointmentsList: [],
     titleInput: '',
     dateInput: '',
-    appointmentsList: [],
     isFilterActive: false,
   }
 
@@ -34,7 +34,7 @@ class Appointments extends Component {
   }
 
   getFilteredAppointmentList = () => {
-    const {appointmentsList, isFilterActive} = this.setState
+    const {appointmentsList, isFilterActive} = this.state
     if (isFilterActive) {
       return appointmentsList.filter(
         eachAppointment => eachAppointment.isStarred === true,
